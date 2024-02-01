@@ -3,6 +3,23 @@
 /server/node_modules
 /server/.env
 
+
+
+/client/.env
+/client/node_modules
+/client/.pnp
+/client/.pnp.js
+
+# testing
+/client/coverage
+
+# production
+/client/build
+
+
+
+
+
 # Logs
 logs
 *.log
