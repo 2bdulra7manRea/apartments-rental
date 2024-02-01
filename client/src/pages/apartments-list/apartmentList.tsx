@@ -36,7 +36,7 @@ export function ApartmentListPage() {
 
       {openForm && (
         <ApartmentForm
-          addEducation={getFormDate}
+          submitData={getFormDate}
           onCancel={() => {
             setOpenForm(false);
           }}

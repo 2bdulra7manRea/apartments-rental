@@ -15,9 +15,9 @@ const schema = yup.object({
 function ApartmentForm({
   onCancel,
   isModalOpen,
-  addEducation,
+  submitData,
 }: {
-  addEducation: (education: any) => void;
+  submitData: (data: any) => void;
   onCancel: () => void;
   isModalOpen: boolean;
 }) {
@@ -37,14 +37,14 @@ function ApartmentForm({
   });
   const onSubmit = (data: any) => {
     console.log(data, "ddd");
-    addEducation(data);
+    submitData(data);
     onCancel();
   };
 
   return (
     <>
       <Modal
-        title="Add New Education"
+        title="Add New Apartment"
         style={{ height: 500 }}
         open={isModalOpen}
         onOk={handleSubmit(onSubmit)}
@@ -160,72 +160,6 @@ function ApartmentForm({
             )}
             name="description"
           />
-
-          {/* <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Form.Item label="Status">
-                <Select value={value} onChange={onChange} onBlur={onBlur}>
-                  <Select.Option value="demo">ToDo</Select.Option>
-                  <Select.Option value="demo">InProgress</Select.Option>
-                  <Select.Option value="demo">InQA</Select.Option>
-                  <Select.Option value="demo">Blocked</Select.Option>
-                </Select>
-
-                {errors.status && (
-                  <span style={{ color: "red" }}>The Status is required.</span>
-                )}
-              </Form.Item>
-            )}
-            name="status"
-          />
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Form.Item label="assigned to">
-                <Select value={value} onChange={onChange} onBlur={onBlur}>
-                  <Select.Option value="demo">ToDo</Select.Option>
-                  <Select.Option value="demo">InProgress</Select.Option>
-                  <Select.Option value="demo">InQA</Select.Option>
-                  <Select.Option value="demo">Blocked</Select.Option>
-                </Select>
-
-                {errors.assignedTo && (
-                  <span style={{ color: "red" }}>This field is required.</span>
-                )}
-              </Form.Item>
-            )}
-            name="assignedTo"
-          />
-
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Form.Item label="assigned By">
-                <Select value={value} onChange={onChange} onBlur={onBlur}>
-                  <Select.Option value="demo">ToDo</Select.Option>
-                  <Select.Option value="demo">InProgress</Select.Option>
-                  <Select.Option value="demo">InQA</Select.Option>
-                  <Select.Option value="demo">Blocked</Select.Option>
-                </Select>
-
-                {errors.assignedBy && (
-                  <span style={{ color: "red" }}>This field is required.</span>
-                )}
-              </Form.Item>
-            )}
-            name="assignedBy"
-          /> */}
         </Form>
       </Modal>
     </>
