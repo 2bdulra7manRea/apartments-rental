@@ -2,6 +2,7 @@ import { Button, Form, Input } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 const schema = yup
   .object({
@@ -30,7 +31,7 @@ function RegisterPage() {
   return (
     <div className="flex justify-center">
       <div style={{ width: "30%" }}>
-        <h1>Sign In</h1>
+        <h1>Create new account</h1>
         <Form>
           <Controller
             control={control}
@@ -107,6 +108,14 @@ function RegisterPage() {
             >
               Sign In
             </Button>
+
+            <div className="p-4 pl-0">
+              <p style={{ display: "inline-block" }} className="mr-2">
+                {" "}
+                Do you have an account already ?
+              </p>
+              <Link to={"/login"}>Sign up</Link>
+            </div>
           </div>
         </Form>
       </div>

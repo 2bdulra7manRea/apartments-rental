@@ -8,6 +8,8 @@ import {
 import { ApartmentListPage } from "./pages/apartments-list/apartmentList";
 import { ApartmentDetailsPage } from "./pages/apartment-details/apartmentDetails";
 import { UsersListPage } from "./pages/users-list/usersList";
+import LoginPage from "./pages/auth/login";
+import RegisterPage from "./pages/auth/register";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,14 @@ const router = createBrowserRouter([
   {
     path: "/apartments",
     element: <ApartmentListPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
     path: "/apartments/:id/details",
