@@ -1,6 +1,9 @@
 import { Button } from "antd";
 import { useState } from "react";
 
+const pd =
+  "https://res.cloudinary.com/homelike/image/upload/w_1900,c_fit,f_auto/homelike-05/uploads/4b4f6f4888bc12223a9e6b31320b9e0e2024d56001f32edf974e813baf3d12d1.jpeg?q=auto";
+
 export function ApartmentCard() {
   const [view, setView] = useState("INFO");
 
@@ -12,11 +15,7 @@ export function ApartmentCard() {
       case "INFO":
         return (
           <>
-            <img
-              width={"100%"}
-              height={"100%"}
-              src="https://housinganywhere.imgix.net/unit_type/1460609/34e018ea-37ce-47a9-a4f1-6b0c720546f1.jpg?ixlib=react-9.2.0&auto=format&fit=clip&cs=srgb&w=1446"
-            />
+            <img width={"100%"} height={"100%"} src={pd} />
           </>
         );
 
@@ -31,9 +30,9 @@ export function ApartmentCard() {
   return (
     <div
       style={{
-        width: "350px",
-        margin: "5px",
-        height: "400px",
+        width: "280px",
+        margin: "14px",
+        height: "370px",
         backgroundColor: "white",
       }}
     >

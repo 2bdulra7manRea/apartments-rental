@@ -1,5 +1,6 @@
 import { Button, Table } from "antd";
-
+import { MdDelete } from "react-icons/md";
+import { FaEdit } from "react-icons/fa";
 export function UsersListPage() {
   const dataSource = [
     {
@@ -55,6 +56,17 @@ export function UsersListPage() {
             >
               {row.role}
             </span>
+          </>
+        );
+      },
+    },
+    {
+      title: "Actions",
+      render: (row: any) => {
+        return (
+          <>
+            <FaEdit size={20} />
+            <MdDelete size={20} color="red" />
           </>
         );
       },

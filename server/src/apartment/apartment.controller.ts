@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ApartmentService } from './apartment.service';
 import { CreateApartmentDto } from './dto/create-apartment.dto';
 import { UpdateApartmentDto } from './dto/update-apartment.dto';
@@ -7,12 +15,12 @@ import { UpdateApartmentDto } from './dto/update-apartment.dto';
 export class ApartmentController {
   constructor(private readonly apartmentService: ApartmentService) {}
 
-  @Post()
+  @Post('/new')
   create(@Body() createApartmentDto: CreateApartmentDto) {
     return this.apartmentService.create(createApartmentDto);
   }
 
-  @Get()
+  @Get('/list')
   findAll() {
     return this.apartmentService.findAll();
   }
@@ -23,7 +31,10 @@ export class ApartmentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateApartmentDto: UpdateApartmentDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateApartmentDto: UpdateApartmentDto,
+  ) {
     return this.apartmentService.update(+id, updateApartmentDto);
   }
 

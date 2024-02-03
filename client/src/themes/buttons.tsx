@@ -11,11 +11,11 @@ export const PrimaryButton = ({
     <>
       <Button
         style={{
-          backgroundColor: "black",
-          color: "white",
-          outline: "none",
-          display: "block",
-          border: "none",
+          // backgroundColor: "black",
+          // color: "white",
+          // outline: "none",
+          // display: "block",
+          // border: "none",
           width: "100%",
         }}
         onClick={onClick}

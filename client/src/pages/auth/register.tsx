@@ -2,8 +2,12 @@ import { Button, Form, Input } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PrimaryButton } from "../../themes/buttons";
+import { useRegisterAccountMutation } from "../../api/auth.api";
+import { addAuthHeader } from "../../api/http";
+import { useAccount } from "@azure/msal-react";
+import { useUserAccount } from "../../hooks/useAccount";
 
 const schema = yup
   .object({
@@ -14,6 +18,18 @@ const schema = yup
   .required();
 
 function RegisterPage() {
+  const { handleOnLogin } = useUserAccount();
+  const { mutate } = useRegisterAccountMutation({
+    onSuccess: (data) => {
+      if (data.data.access_token) {
+        handleOnLogin(data.data.access_token);
+      }
+    },
+    onError(error, variables, context) {
+      console.log(error);
+    },
+  });
+
   const {
     control,
     handleSubmit,
@@ -27,7 +43,18 @@ function RegisterPage() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {};
+  const prepareFormData = (data: any) => {
+    return {
+      email: data.email,
+      username: data.username,
+      password: data.password,
+    };
+  };
+
+  const onSubmit = (data: any) => {
+    const formData = prepareFormData(data);
+    mutate(formData);
+  };
 
   return (
     <div
