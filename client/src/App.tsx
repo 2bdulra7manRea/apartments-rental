@@ -10,6 +10,7 @@ import { ApartmentDetailsPage } from "./pages/apartment-details/apartmentDetails
 import { UsersListPage } from "./pages/users-list/usersList";
 import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
+import { Home } from "./pages/home/Home";
 
 const router = createBrowserRouter([
   {
@@ -17,24 +18,30 @@ const router = createBrowserRouter([
     element: <Navigate to={"/apartments"} />,
   },
   {
-    path: "/apartments",
-    element: <ApartmentListPage />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-  {
-    path: "/apartments/:id/details",
-    element: <ApartmentDetailsPage />,
-  },
-  {
-    path: "/users",
-    element: <UsersListPage />,
+    path: "/",
+    element: <Home />,
+    children: [
+      {
+        path: "apartments",
+        element: <ApartmentListPage />,
+      },
+      {
+        path: "apartments/:id/details",
+        element: <ApartmentDetailsPage />,
+      },
+      {
+        path: "users",
+        element: <UsersListPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
+      },
+      {
+        path: "register",
+        element: <RegisterPage />,
+      },
+    ],
   },
 ]);
 

@@ -3,6 +3,7 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Link } from "react-router-dom";
+import { PrimaryButton } from "../../themes/buttons";
 
 const schema = yup
   .object({
@@ -29,7 +30,10 @@ function RegisterPage() {
   const onSubmit = (data: any) => {};
 
   return (
-    <div className="flex justify-center">
+    <div
+      className="flex justify-center items-center"
+      style={{ backgroundColor: "white", height: "70vh" }}
+    >
       <div style={{ width: "30%" }}>
         <h1>Create new account</h1>
         <Form>
@@ -101,13 +105,9 @@ function RegisterPage() {
           />
 
           <div>
-            <Button
-              type="primary"
-              style={{ width: "100%" }}
-              onClick={handleSubmit(onSubmit)}
-            >
+            <PrimaryButton onClick={handleSubmit(onSubmit)}>
               Sign In
-            </Button>
+            </PrimaryButton>
 
             <div className="p-4 pl-0">
               <p style={{ display: "inline-block" }} className="mr-2">
