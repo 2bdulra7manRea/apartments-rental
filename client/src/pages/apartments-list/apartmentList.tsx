@@ -7,6 +7,7 @@ import FilterApartmentModel from "../../components/filter-items/filterApartments
 import { BsFillFilterSquareFill } from "react-icons/bs";
 import { useFetchApartments } from "../../api/apartment.api";
 import { IApartment } from "../../common/types";
+import HeaderList from "../../components/header/headerList";
 export function ApartmentListPage() {
   const [openForm, setOpenForm] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
@@ -15,22 +16,10 @@ export function ApartmentListPage() {
 
   return (
     <>
-      <div
-        style={{
-          backgroundColor: "white",
-          display: "flex",
-          alignItems: "flex-end",
-        }}
-        className="p-4"
-      >
-        <Button
-          onClick={() => {
-            setOpenForm(true);
-          }}
-        >
-          Add new Apartment
-        </Button>
-      </div>
+      <HeaderList
+        titleButton="Add new Apartment"
+        onClick={() => setOpenForm(true)}
+      />
 
       <div className="flex justify-between mt-4 mb-4 p-4">
         <div style={{ width: "71%" }}>
