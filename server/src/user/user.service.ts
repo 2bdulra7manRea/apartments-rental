@@ -16,18 +16,20 @@ export class UserService {
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.userRepository.find({
+      select: ['email', 'username', 'role', 'id'],
+    });
   }
 
   async findOne(filter: any) {
     return this.userRepository.findOne({ where: filter });
   }
 
-  update(id: number) {
-    return `This action updates a #${id} user`;
+  update(id: number, updated: any) {
+    return this.userRepository.update(id, updated);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.userRepository.delete(id);
   }
 }

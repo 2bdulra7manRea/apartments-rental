@@ -62,6 +62,7 @@ export class AuthService {
       hashed_password,
       email: registerData.email,
       username: registerData.username,
+      role: registerData.role,
     };
 
     const user = await this.userService.create(userData);

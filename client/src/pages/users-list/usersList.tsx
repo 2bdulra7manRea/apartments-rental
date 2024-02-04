@@ -1,33 +1,9 @@
 import { Button, Table } from "antd";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { useFetchUsers } from "../../api/users.api";
 export function UsersListPage() {
-  const dataSource = [
-    {
-      key: "1",
-      username: "Mike",
-      email: "das@gmail.com",
-      role: "realtor",
-    },
-    {
-      key: "2",
-      username: "dMike",
-      email: "das@gmail.com",
-      role: "realtor",
-    },
-    {
-      key: "4",
-      username: "moz",
-      email: "das@gmail.com",
-      role: "client",
-    },
-    {
-      key: "3",
-      username: "sMike",
-      email: "das@gmail.com",
-      role: "admin",
-    },
-  ];
+  const { data, isLoading, isSuccess } = useFetchUsers();
 
   const columns = [
     {
@@ -76,7 +52,12 @@ export function UsersListPage() {
     <div className="p-4">
       <h1 className="m-4">Users</h1>
       <div>
-        <Table dataSource={dataSource} columns={columns} />;
+        <Table
+          dataSource={isSuccess ? data?.data : []}
+          loading={isLoading}
+          columns={columns}
+        />
+        ;
       </div>
     </div>
   );

@@ -12,4 +12,8 @@ export class UserRegister {
   @IsNotEmpty()
   @IsString()
   username: string;
+
+  @IsNotEmpty()
+  @IsString()
+  role: string;
 }
