@@ -12,6 +12,7 @@ export type IApartment = {
   floor_area_size: number;
 
   status?: boolean;
+  id?: any;
 };
 
 export enum ROLES_USERS {

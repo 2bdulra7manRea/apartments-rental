@@ -31,7 +31,7 @@ export function Header() {
         <h1 style={{ color: "white", fontWeight: "bold" }}>Rental UK</h1>
       </div>
 
-      <div className="flex justify-between" style={{ width: "30%" }}>
+      <div className="flex justify-between" style={{ width: "40%" }}>
         <Menu
           onClick={handleMenuClick}
           selectedKeys={[selectedKey]}

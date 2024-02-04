@@ -7,6 +7,7 @@ import { useCreateApartmentMutation } from "../../../api/apartment.api";
 import { IApartment } from "../../../common/types";
 import { memo } from "react";
 import { useQueryClient } from "react-query";
+import { useNotificationApp } from "../../notification/notification";
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -38,12 +39,17 @@ function ApartmentForm({
     resolver: yupResolver(schema),
   });
 
+  const { openNotification, contextHolder } = useNotificationApp();
   const queryClient = useQueryClient();
 
   const { mutate } = useCreateApartmentMutation({
     onSuccess(data) {
       onCancel();
       queryClient.invalidateQueries(["get-apartments"]);
+      openNotification("The apartment has been added successfully", "success");
+    },
+    onError: () => {
+      openNotification("Failed to add a new apartment", "error");
     },
   });
 

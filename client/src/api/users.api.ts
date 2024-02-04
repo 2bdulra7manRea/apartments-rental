@@ -1,5 +1,5 @@
-import { useQuery } from "react-query";
-import { httpGet } from "./http";
+import { useMutation, useQuery } from "react-query";
+import { httpDelete, httpGet } from "./http";
 
 export const useFetchUsers = () => {
   const { data, isSuccess, isLoading } = useQuery({
@@ -8,4 +8,33 @@ export const useFetchUsers = () => {
   });
 
   return { data, isSuccess, isLoading };
+};
+
+export const useDeleteUserMutation = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?:
+    | ((data: any, variables: any, context: unknown) => void | Promise<unknown>)
+    | undefined;
+  onError?:
+    | ((
+        error: any,
+        variables: any,
+        context: unknown
+      ) => void | Promise<unknown>)
+    | undefined;
+}) => {
+  const { mutate, isError, isLoading, isSuccess, data } = useMutation<
+    any,
+    any,
+    any
+  >({
+    mutationFn: (id: string) => {
+      return httpDelete(`users/${id}`);
+    },
+    onSuccess,
+    onError,
+  });
+  return { mutate, isError, isLoading, isSuccess, data };
 };

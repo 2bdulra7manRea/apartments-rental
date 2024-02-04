@@ -2,9 +2,12 @@ import { Button, Table } from "antd";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 import { useFetchUsers } from "../../api/users.api";
+import { useState } from "react";
+import DeleteUserModel from "../../components/models/deleteUserModel";
 export function UsersListPage() {
   const { data, isLoading, isSuccess } = useFetchUsers();
-
+  const [userDeleteModel, setUserDeleteModel] = useState(false);
+  const [currentClickedRow, setCurrentClickedRow] = useState<string>("");
   const columns = [
     {
       title: "Username",
@@ -42,7 +45,15 @@ export function UsersListPage() {
         return (
           <>
             <FaEdit size={20} />
-            <MdDelete size={20} color="red" />
+            <Button
+              type="text"
+              onClick={() => {
+                setUserDeleteModel(true);
+                setCurrentClickedRow(row.id);
+              }}
+            >
+              <MdDelete size={20} color="red" />
+            </Button>
           </>
         );
       },
@@ -57,8 +68,17 @@ export function UsersListPage() {
           loading={isLoading}
           columns={columns}
         />
-        ;
       </div>
+      {
+        <DeleteUserModel
+          currentRowId={currentClickedRow}
+          title="Delete User"
+          onCancel={() => {
+            setUserDeleteModel(false);
+          }}
+          isModalOpen={userDeleteModel}
+        />
+      }
     </div>
   );
 }

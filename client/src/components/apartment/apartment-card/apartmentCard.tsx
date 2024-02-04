@@ -1,11 +1,14 @@
 import { Button, Divider } from "antd";
 import { useState } from "react";
 import { IApartment } from "../../../common/types";
+import DeleteApartmentModel from "../../models/deleteAppartmentModel";
 
 const pd =
   "https://res.cloudinary.com/homelike/image/upload/w_1900,c_fit,f_auto/homelike-05/uploads/4b4f6f4888bc12223a9e6b31320b9e0e2024d56001f32edf974e813baf3d12d1.jpeg?q=auto";
 
 export function ApartmentCard({ item }: { item: IApartment }) {
+  const [openDeleteModel, setOpenDeleteModel] = useState(false);
+
   const {
     name,
     description,
@@ -13,29 +16,8 @@ export function ApartmentCard({ item }: { item: IApartment }) {
     number_of_rooms,
     floor_area_size,
     status,
+    id,
   } = item;
-
-  const [view, setView] = useState("INFO");
-
-  function displayView(viewState: string) {
-    switch (viewState) {
-      case "MAP":
-        return <>map</>;
-
-      case "INFO":
-        return (
-          <>
-            <img width={"100%"} height={"100%"} src={pd} />
-          </>
-        );
-
-      case "DETAILS":
-        return <>details</>;
-
-      default:
-        return <></>;
-    }
-  }
 
   return (
     <div
@@ -50,7 +32,7 @@ export function ApartmentCard({ item }: { item: IApartment }) {
         className="apartment-img"
         style={{ width: "100%", height: "50%", backgroundColor: "gray" }}
       >
-        {displayView(view)}
+        <img width={"100%"} height={"100%"} src={pd} />
       </div>
 
       <div className="p-4">
@@ -88,6 +70,18 @@ export function ApartmentCard({ item }: { item: IApartment }) {
           </div>
         </div>
       </div>
+      {openDeleteModel ? (
+        <DeleteApartmentModel
+          currentRowId={id}
+          title="Delete Apartment"
+          onCancel={() => {
+            setOpenDeleteModel(false);
+          }}
+          isModalOpen={openDeleteModel}
+        />
+      ) : (
+        <></>
+      )}
     </div>
   );
 }
