@@ -29,8 +29,8 @@ function CreateUserModel({
 
   const { mutate } = useCreateUserMutation({
     onSuccess() {
-      queryClient.invalidateQueries(["get-users"]);
       openNotification("The user has been added successfully", "success");
+      queryClient.invalidateQueries(["get-users"]);
       onCancel();
     },
     onError: () => {
@@ -72,101 +72,91 @@ function CreateUserModel({
   };
 
   return (
-    <Modal
-      title="Add New User"
-      style={{ height: 500 }}
-      open={isModalOpen}
-      onOk={handleSubmit(onSubmit)}
-      onCancel={onCancel}
-    >
-      <div
-        className="flex justify-center items-center"
-        style={{ backgroundColor: "white", height: "70vh" }}
+    <>
+      <Modal
+        title="Add New User"
+        style={{ height: 500 }}
+        open={isModalOpen}
+        onOk={handleSubmit(onSubmit)}
+        onCancel={onCancel}
       >
-        <div style={{ width: "30%" }}>
-          <Form>
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Item label="" className="mt-6 mb-6">
-                  <Input
-                    value={value}
-                    placeholder="Username"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                  />
-                  {errors.username && (
-                    <span style={{ color: "red" }}>
-                      The username is required.
-                    </span>
-                  )}
-                </Form.Item>
-              )}
-              name="username"
-            />
+        <Form>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Form.Item label="" className="mt-6 mb-6">
+                <Input
+                  value={value}
+                  placeholder="Username"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+                {errors.username && (
+                  <span style={{ color: "red" }}>
+                    The username is required.
+                  </span>
+                )}
+              </Form.Item>
+            )}
+            name="username"
+          />
 
-            <div className="mt-6 mb-6">
-              <Checkbox value={isRealtor} onChange={onChange}>
-                as Realtor
-              </Checkbox>
-            </div>
+          <div className="mt-6 mb-6">
+            <Checkbox value={isRealtor} onChange={onChange}>
+              as Realtor
+            </Checkbox>
+          </div>
 
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Item label="" className="mt-6 mb-6">
-                  <Input
-                    value={value}
-                    placeholder="E-email"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                  />
-                  {errors.email && (
-                    <span style={{ color: "red" }}>The Email is required.</span>
-                  )}
-                </Form.Item>
-              )}
-              name="email"
-            />
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Form.Item label="" className="mt-6 mb-6">
+                <Input
+                  value={value}
+                  placeholder="E-email"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+                {errors.email && (
+                  <span style={{ color: "red" }}>The Email is required.</span>
+                )}
+              </Form.Item>
+            )}
+            name="email"
+          />
 
-            <Controller
-              control={control}
-              rules={{
-                required: true,
-              }}
-              render={({ field: { onChange, onBlur, value } }) => (
-                <Form.Item label="" className="mt-6 mb-6">
-                  <Input.Password
-                    value={value}
-                    placeholder="password"
-                    onChange={onChange}
-                    onBlur={onBlur}
-                  />
-                  {errors.password && (
-                    <span style={{ color: "red" }}>
-                      The Password is required.
-                    </span>
-                  )}
-                </Form.Item>
-              )}
-              name="password"
-            />
-
-            <div>
-              <PrimaryButton onClick={handleSubmit(onSubmit)}>
-                Sign In
-              </PrimaryButton>
-            </div>
-          </Form>
-        </div>
-      </div>
-    </Modal>
+          <Controller
+            control={control}
+            rules={{
+              required: true,
+            }}
+            render={({ field: { onChange, onBlur, value } }) => (
+              <Form.Item label="" className="mt-6 mb-6">
+                <Input.Password
+                  value={value}
+                  placeholder="password"
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+                {errors.password && (
+                  <span style={{ color: "red" }}>
+                    The Password is required.
+                  </span>
+                )}
+              </Form.Item>
+            )}
+            name="password"
+          />
+        </Form>
+      </Modal>
+      {contextHolder}
+    </>
   );
 }
 

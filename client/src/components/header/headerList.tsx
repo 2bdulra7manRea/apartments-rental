@@ -13,8 +13,7 @@ function HeaderList({
       <div
         style={{
           backgroundColor: "white",
-          display: "flex",
-          alignItems: "flex-end",
+          textAlign: "right",
         }}
         className="p-4"
       >
