@@ -3,6 +3,10 @@ import TextArea from "antd/es/input/TextArea";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useCreateApartmentMutation } from "../../../api/apartment.api";
+import { IApartment } from "../../../common/types";
+import { memo } from "react";
+import { useQueryClient } from "react-query";
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -15,9 +19,7 @@ const schema = yup.object({
 function ApartmentForm({
   onCancel,
   isModalOpen,
-  submitData,
 }: {
-  submitData: (data: any) => void;
   onCancel: () => void;
   isModalOpen: boolean;
 }) {
@@ -35,10 +37,33 @@ function ApartmentForm({
     },
     resolver: yupResolver(schema),
   });
+
+  const queryClient = useQueryClient();
+
+  const { mutate } = useCreateApartmentMutation({
+    onSuccess(data) {
+      onCancel();
+      queryClient.invalidateQueries(["get-apartments"]);
+    },
+  });
+
+  const prepareDataForm = (data: any): IApartment => {
+    return {
+      name: data.name,
+      description: data.description,
+      price_per_month: parseFloat(data.price_per_month),
+      floor_area_size: parseFloat(data.floor_area_size),
+      number_of_rooms: parseInt(data.number_of_rooms),
+      coordinates: JSON.stringify([130.342, 32.3213]),
+    };
+  };
+
   const onSubmit = (data: any) => {
-    console.log(data, "ddd");
-    submitData(data);
-    onCancel();
+    const dataForm = prepareDataForm(data);
+    if (Object.keys(dataForm).length === 0) {
+      return;
+    }
+    mutate(dataForm);
   };
 
   return (
@@ -166,4 +191,4 @@ function ApartmentForm({
   );
 }
 
-export default ApartmentForm;
+export default memo(ApartmentForm);

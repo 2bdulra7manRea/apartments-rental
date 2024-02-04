@@ -4,22 +4,37 @@ import { httpGet, httpPost } from "./http";
 export const useFetchApartments = () => {
   const { data, isSuccess, isLoading } = useQuery({
     queryKey: ["get-apartments"],
-    queryFn: () => httpGet("apartments/list"),
+    queryFn: () => httpGet("apartment/list"),
   });
 
   return { data, isSuccess, isLoading };
 };
 
-export const createApartmentMutation = () => {
-  const queryClient = useQueryClient();
-  const { mutateAsync, isError, isLoading, isSuccess, data } = useMutation({
-    mutationFn: (apartment) => {
+export const useCreateApartmentMutation = ({
+  onSuccess,
+  onError,
+}: {
+  onSuccess?:
+    | ((data: any, variables: any, context: unknown) => void | Promise<unknown>)
+    | undefined;
+  onError?:
+    | ((
+        error: any,
+        variables: any,
+        context: unknown
+      ) => void | Promise<unknown>)
+    | undefined;
+}) => {
+  const { mutate, isError, isLoading, isSuccess, data } = useMutation<
+    any,
+    any,
+    any
+  >({
+    mutationFn: (apartment: any) => {
       return httpPost("apartment/new", apartment);
     },
-    onSuccess(data, variables, context) {
-      queryClient.invalidateQueries(["get-apartments"]);
-    },
-    onError(error, variables, context) {},
+    onSuccess,
+    onError,
   });
-  return { mutateAsync, isError, isLoading, isSuccess, data };
+  return { mutate, isError, isLoading, isSuccess, data };
 };

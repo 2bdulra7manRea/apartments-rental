@@ -3,28 +3,33 @@ import { ApartmentCard } from "../../components/apartment/apartment-card/apartme
 import ApartmentForm from "../../components/apartment/apartment-form/apartmentForm";
 import { useState } from "react";
 import GoogleMapContainer from "../../components/google-map/googleMapContainer";
-import FilterApartmentMenu from "../../components/filter-items/filterApartments";
 import FilterApartmentModel from "../../components/filter-items/filterApartments";
 import { BsFillFilterSquareFill } from "react-icons/bs";
+import { useFetchApartments } from "../../api/apartment.api";
+import { IApartment } from "../../common/types";
 export function ApartmentListPage() {
   const [openForm, setOpenForm] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
-  function getFormDate(data: any) {
-    setOpenForm(false);
-    console.log(data);
-  }
+
+  const { data, isSuccess } = useFetchApartments();
 
   return (
     <>
-      <div style={{ backgroundColor: "white" }} className="p-4">
-        {/* <Button
+      <div
+        style={{
+          backgroundColor: "white",
+          display: "flex",
+          alignItems: "flex-end",
+        }}
+        className="p-4"
+      >
+        <Button
           onClick={() => {
             setOpenForm(true);
           }}
         >
           Add new Apartment
-        </Button> */}
-        {/* <FilterApartmentMenu /> */}
+        </Button>
       </div>
 
       <div className="flex justify-between mt-4 mb-4 p-4">
@@ -42,13 +47,13 @@ export function ApartmentListPage() {
           </div>
 
           <div className="flex flex-wrap">
-            <ApartmentCard />
-            <ApartmentCard />
-            <ApartmentCard />
-            <ApartmentCard />
-            <ApartmentCard />
-            <ApartmentCard />
-            <ApartmentCard />
+            {isSuccess ? (
+              data?.data.map((item: IApartment) => {
+                return <ApartmentCard item={item} />;
+              })
+            ) : (
+              <>No Apartments Found</>
+            )}
           </div>
         </div>
 
@@ -59,7 +64,6 @@ export function ApartmentListPage() {
 
       {openForm && (
         <ApartmentForm
-          submitData={getFormDate}
           onCancel={() => {
             setOpenForm(false);
           }}

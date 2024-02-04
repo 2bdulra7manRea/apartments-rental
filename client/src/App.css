@@ -2,3 +2,8 @@
     padding:0px;
     margin:0px;
 }
+
+.unit{
+    color: gray;
+    font-style: italic;
+}

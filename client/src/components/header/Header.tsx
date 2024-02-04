@@ -2,11 +2,13 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 import { PrimaryButton } from "../../themes/buttons";
 import { Menu } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAccount } from "@azure/msal-react";
+import { useUserAccount } from "../../hooks/useAccount";
 
 export function Header() {
   const [selectedKey, setSelectedKey] = useState("home");
-
+  const { isAuthenticated, handleOnLogout } = useUserAccount();
   const navigate = useNavigate();
 
   const handleMenuClick = (e: any) => {
@@ -50,7 +52,11 @@ export function Header() {
         </Menu>
       </div>
       <div style={{ width: "200px" }}>
-        <PrimaryButton onClick={routeToSignInPage}>Sign in</PrimaryButton>
+        {isAuthenticated() ? (
+          <PrimaryButton onClick={handleOnLogout}>Logout</PrimaryButton>
+        ) : (
+          <PrimaryButton onClick={routeToSignInPage}>Sign in</PrimaryButton>
+        )}
       </div>
     </div>
   );
