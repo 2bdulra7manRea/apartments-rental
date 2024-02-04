@@ -109,7 +109,7 @@ git clone <repository-url>
 Navigate to the backend directory and run the following command to install the required dependencies:
 
 ```bash
-cd backend
+cd server
 npm install
 ```
 
@@ -149,7 +149,7 @@ Access the API endpoints either using a tool like Postman or through the provide
 Navigate to the frontend directory and run the following command to install the required dependencies:
 
 ```bash
-cd frontend
+cd client
 npm install
 ```
 
@@ -158,9 +158,9 @@ npm install
 Create a `.env` file in the frontend directory and configure the following environment variables:
 
 ```env
-REACT_APP_API_KEY=<Your_API_Key>
+REACT_APP_API_KEY=<Your_Google_Map_API_Key>
 REACT_APP_BACKEND_URL_API=<Your_Backend_API_URL>
-REACT_APP_TOKEN_KEY=<Your_Token_Key>
+REACT_APP_TOKEN_KEY=<Your_Token_Local_Storage_Key_>
 ```
 
 ### 3. Start the Frontend Development Server
