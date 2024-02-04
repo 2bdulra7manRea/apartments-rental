@@ -96,20 +96,81 @@ This web application is designed to manage apartments for rental purposes. It is
 
 ## Getting Started
 
-1. **Clone the repository:**
+### 1. Clone the repository
 
-   ```
-   git clone <repository-url>
-   ```
+```
+git clone <repository-url>
+```
 
-2. **Install dependencies:**
+## Backend Setup
 
-   ```
-   cd <project-folder>
-   npm install
-   ```
+### 1. Install Dependencies
 
-3. **Run the application:**
-   ```
-   npm start
-   ```
+Navigate to the backend directory and run the following command to install the required dependencies:
+
+```bash
+cd backend
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the backend directory and configure the following environment variables:
+
+```env
+NODE_SERVER_PORT=4000
+DB_PORT=<Your_DB_Port>
+DB_HOST=<Your_DB_Host>
+MYSQL_ROOT_PASSWORD=<Your_MySQL_Root_Password>
+MYSQL_DATABASE_USER_NAME=<Your_MySQL_Username>
+MYSQL_DATABASE=<Your_MySQL_Database_Name>
+SALT_ROUNDS=<Your_Salt_Rounds>
+JWT_SECRET=<Your_JWT_Secret>
+```
+
+### 3. Set Up MySQL Database
+
+Ensure you have MySQL installed and running. Update the `DB_PORT`, `DB_HOST`, `MYSQL_ROOT_PASSWORD`, `MYSQL_DATABASE_USER_NAME`, and `MYSQL_DATABASE` in the `.env` file with your database configuration.
+
+### 4. Start the Backend Server
+
+Run the following command to start the NestJS backend server:
+
+```bash
+npm run start:dev
+```
+
+Access the API endpoints either using a tool like Postman or through the provided Swagger documentation at `{{localhost}}/docs`.
+
+## Frontend Setup
+
+### 1. Install Dependencies
+
+Navigate to the frontend directory and run the following command to install the required dependencies:
+
+```bash
+cd frontend
+npm install
+```
+
+### 2. Configure Environment Variables
+
+Create a `.env` file in the frontend directory and configure the following environment variables:
+
+```env
+REACT_APP_API_KEY=<Your_API_Key>
+REACT_APP_BACKEND_URL_API=<Your_Backend_API_URL>
+REACT_APP_TOKEN_KEY=<Your_Token_Key>
+```
+
+### 3. Start the Frontend Development Server
+
+Run the following command to start the React frontend development server:
+
+```bash
+npm start
+```
+
+Visit the application at `http://localhost:3000` in your web browser.
+
+Now you have successfully set up and configured the NestJS React application for managing apartment rentals.
