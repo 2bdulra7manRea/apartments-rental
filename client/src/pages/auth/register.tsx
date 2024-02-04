@@ -1,13 +1,13 @@
-import { Button, Form, Input } from "antd";
+import { Checkbox, CheckboxProps, Form, Input } from "antd";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { PrimaryButton } from "../../themes/buttons";
 import { useRegisterAccountMutation } from "../../api/auth.api";
-import { addAuthHeader } from "../../api/http";
-import { useAccount } from "@azure/msal-react";
 import { useUserAccount } from "../../hooks/useAccount";
+import { useState } from "react";
+import { ROLES_USERS } from "../../common/types";
 
 const schema = yup
   .object({
@@ -19,10 +19,11 @@ const schema = yup
 
 function RegisterPage() {
   const { handleOnLogin } = useUserAccount();
+  const [isRealtor, setIsRealtor] = useState(false);
   const { mutate } = useRegisterAccountMutation({
     onSuccess: (data) => {
       if (data.data.access_token) {
-        handleOnLogin(data.data.access_token);
+        handleOnLogin(data.data);
       }
     },
     onError(error, variables, context) {
@@ -48,12 +49,17 @@ function RegisterPage() {
       email: data.email,
       username: data.username,
       password: data.password,
+      role: isRealtor ? ROLES_USERS.REALTOR : ROLES_USERS.CLIENT,
     };
   };
 
   const onSubmit = (data: any) => {
     const formData = prepareFormData(data);
     mutate(formData);
+  };
+
+  const onChange: CheckboxProps["onChange"] = (e) => {
+    setIsRealtor(e.target.checked);
   };
 
   return (
@@ -86,6 +92,12 @@ function RegisterPage() {
             )}
             name="username"
           />
+
+          <div className="mt-6 mb-6">
+            <Checkbox value={isRealtor} onChange={onChange}>
+              as Realtor
+            </Checkbox>
+          </div>
 
           <Controller
             control={control}
@@ -138,7 +150,6 @@ function RegisterPage() {
 
             <div className="p-4 pl-0">
               <p style={{ display: "inline-block" }} className="mr-2">
-                {" "}
                 Do you have an account already ?
               </p>
               <Link to={"/login"}>Sign up</Link>

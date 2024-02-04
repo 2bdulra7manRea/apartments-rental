@@ -4,6 +4,7 @@ import { UserLogin } from './dto/user-login';
 import { UserService } from 'src/user/user.service';
 import { PasswordManager } from './validation/passwordManager.service';
 import { UserRegister } from './dto/user-register';
+import { authResponse } from 'src/common/helpers';
 
 @Injectable()
 export class AuthService {
@@ -34,12 +35,12 @@ export class AuthService {
       );
     }
 
-    return {
-      access_token: this.jwtService.sign({
-        user_id: user.id,
-        time: new Date(),
-      }),
-    };
+    const access_token = this.jwtService.sign({
+      user_id: user.id,
+      time: new Date(),
+    });
+
+    return authResponse(access_token, user);
   }
 
   async register(registerData: UserRegister) {
@@ -66,11 +67,12 @@ export class AuthService {
     };
 
     const user = await this.userService.create(userData);
-    return {
-      access_token: this.jwtService.sign({
-        user_id: user.identifiers[0].id,
-        time: new Date(),
-      }),
-    };
+
+    const access_token = this.jwtService.sign({
+      user_id: user.identifiers[0].id,
+      time: new Date(),
+    });
+
+    return authResponse(access_token, user);
   }
 }

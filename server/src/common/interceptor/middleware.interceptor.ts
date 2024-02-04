@@ -27,7 +27,7 @@ export class MiddlewareInterceptor<T>
           return new HttpException(err, HttpStatus.BAD_REQUEST);
         }),
       ),
-      map((data) => ({ data })),
+      map((data) => data),
     );
   }
 }

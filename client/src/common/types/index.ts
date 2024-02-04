@@ -13,3 +13,15 @@ export type IApartment = {
 
   status?: boolean;
 };
+
+export enum ROLES_USERS {
+  ADMIN = "ADMIN",
+  CLIENT = "CLIENT",
+  REALTOR = "REALTOR",
+}
+
+export type User = {
+  email: string;
+  username: string;
+  role: ROLES_USERS;
+};

@@ -19,7 +19,7 @@ function LoginPage() {
   const { mutate } = useLoginAccountMutation({
     onSuccess: (data) => {
       if (data.data.access_token) {
-        handleOnLogin(data.data.access_token);
+        handleOnLogin(data.data);
       }
     },
     onError(error, variables, context) {
