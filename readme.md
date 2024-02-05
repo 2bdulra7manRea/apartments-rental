@@ -54,6 +54,8 @@ This web application is designed to manage apartments for rental purposes. It is
 
 ## Endpoints
 
+`http://{{localhost}}/api/`
+
 ### Authentication
 
 - **POST** `/auth/login`
@@ -173,6 +175,15 @@ Run the following command to start the React frontend development server:
 ```bash
 npm start
 ```
+
+## Accessing the Application as Admin
+
+To access the application as an admin, you can use the following credentials:
+
+- **Email:** admin@admin.com
+- **Password:** 1234
+
+Please note that these are default admin credentials for development purposes.
 
 Visit the application at `http://localhost:3000` in your web browser.
 
