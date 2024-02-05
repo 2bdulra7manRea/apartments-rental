@@ -47,10 +47,10 @@ This web application is designed to manage apartments for rental purposes. It is
 
 ## Application Examples
 
-![Application Example1](/img/1.jpg)
-![Application Example2](/img/2.jpg)
-![Application Example3](/img/3.jpg)
-![Application Example4](/img/4.jpg)
+![Application Example1](/img/1.jpeg)
+![Application Example2](/img/2.jpeg)
+![Application Example3](/img/3.jpeg)
+![Application Example4](/img/4.jpeg)
 
 ## Endpoints
 
