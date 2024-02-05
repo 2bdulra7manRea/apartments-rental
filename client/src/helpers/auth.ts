@@ -17,4 +17,14 @@ export const getToken = (): string | null => {
 
 export const removeToken = () => {
   sessionStorage.removeItem(tokenStorageKey);
+  sessionStorage.clear();
+};
+
+export const storeUserData = (username: string, role: string) => {
+  sessionStorage.setItem("username", username);
+  sessionStorage.setItem("role", role);
+};
+
+export const getRole = () => {
+  return sessionStorage.getItem("role");
 };

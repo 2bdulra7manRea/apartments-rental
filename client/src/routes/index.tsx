@@ -1,5 +1,4 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import { ApartmentDetailsPage } from "../pages/apartment-details/apartmentDetails";
 import { ApartmentListPage } from "../pages/apartments-list/apartmentList";
 import LoginPage from "../pages/auth/login";
 import RegisterPage from "../pages/auth/register";
@@ -22,15 +21,6 @@ export const appRoutes = createBrowserRouter([
         element: (
           <PrivateRouter>
             <ApartmentListPage />
-          </PrivateRouter>
-        ),
-      },
-      {
-        path: "apartments/:id/details",
-        element: (
-          <PrivateRouter>
-            {" "}
-            <ApartmentDetailsPage />
           </PrivateRouter>
         ),
       },

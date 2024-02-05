@@ -33,6 +33,9 @@ export class Apartment {
   @Column({ default: 0, type: 'double' })
   floor_area_size: number;
 
+  @Column({ default: true })
+  status: boolean;
+
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;
 

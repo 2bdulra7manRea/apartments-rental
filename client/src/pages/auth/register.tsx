@@ -8,6 +8,7 @@ import { useRegisterAccountMutation } from "../../api/auth.api";
 import { useUserAccount } from "../../hooks/useAccount";
 import { useState } from "react";
 import { ROLES_USERS } from "../../common/types";
+import { useNotificationApp } from "../../components/notification/notification";
 
 const schema = yup
   .object({
@@ -20,14 +21,20 @@ const schema = yup
 function RegisterPage() {
   const { handleOnLogin } = useUserAccount();
   const [isRealtor, setIsRealtor] = useState(false);
+
+  const { contextHolder, openNotification } = useNotificationApp();
   const { mutate } = useRegisterAccountMutation({
     onSuccess: (data) => {
       if (data.data.access_token) {
         handleOnLogin(data.data);
+        openNotification("Successfully created a new account", "success");
       }
     },
     onError(error, variables, context) {
-      console.log(error);
+      openNotification(
+        `unable to create a new account, ${error.message}`,
+        "error"
+      );
     },
   });
 
@@ -157,6 +164,7 @@ function RegisterPage() {
           </div>
         </Form>
       </div>
+      {contextHolder}
     </div>
   );
 }

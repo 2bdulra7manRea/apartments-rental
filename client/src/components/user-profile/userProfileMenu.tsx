@@ -22,7 +22,9 @@ function UserProfile() {
         <div>
           <Avatar shape="square" size="large" icon={<UserOutlined />} />
           <span className="font-bold pl-4">
-            {sessionStorage.getItem("username")}
+            {sessionStorage.getItem("username")
+              ? sessionStorage.getItem("username")
+              : "User"}
           </span>
         </div>
       </Dropdown>

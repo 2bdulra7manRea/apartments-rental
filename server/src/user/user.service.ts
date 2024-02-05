@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  OnModuleInit,
+} from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,12 +11,15 @@ import { PasswordManager } from 'src/shared/passwordManager.service';
 import { UserRegister } from 'src/Auth/dto/user-register';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnModuleInit {
   constructor(
     @InjectRepository(User)
     private userRepository: Repository<User>,
     private readonly passwordManager: PasswordManager,
   ) {}
+  async onModuleInit() {
+    await this.createAdminUser();
+  }
 
   create(user: { username: string; email: string; hashed_password: string }) {
     return this.userRepository.insert(user);
@@ -46,6 +54,18 @@ export class UserService {
     } catch (error) {
       return new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
+  }
+
+  async createAdminUser() {
+    try {
+      const data = {
+        username: 'admin',
+        email: 'admin@admin.com',
+        password: '1234',
+        role: 'ADMIN',
+      };
+      await this.addNewUser(data);
+    } catch (error) {}
   }
 
   findAll() {

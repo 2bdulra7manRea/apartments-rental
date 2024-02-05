@@ -26,3 +26,15 @@ export type User = {
   username: string;
   role: ROLES_USERS;
 };
+
+export type FilterApartmentQuery = {
+  number_of_rooms?: number;
+
+  price_per_month?: number;
+
+  floor_area_size?: number;
+
+  skip?: number;
+
+  take?: number;
+};

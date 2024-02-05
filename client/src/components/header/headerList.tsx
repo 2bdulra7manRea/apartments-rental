@@ -1,6 +1,4 @@
 import { Button } from "antd";
-import { memo } from "react";
-
 function HeaderList({
   titleButton,
   onClick,
@@ -25,4 +23,4 @@ function HeaderList({
   );
 }
 
-export default memo(HeaderList);
+export default HeaderList;

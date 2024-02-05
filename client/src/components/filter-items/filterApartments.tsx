@@ -1,5 +1,6 @@
 import { Form, InputNumber, Modal } from "antd";
 import { Controller, useForm } from "react-hook-form";
+import { PrimaryButton } from "../../themes/buttons";
 
 function FilterApartmentModel({
   onCancel,
@@ -10,7 +11,7 @@ function FilterApartmentModel({
   onCancel: () => void;
   isModalOpen: boolean;
 }) {
-  const { control, handleSubmit } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       price_per_month: 0,
       floor_area_size: 0,
@@ -19,7 +20,6 @@ function FilterApartmentModel({
   });
 
   const onSubmit = (data: any) => {
-    console.log(data, "ddd");
     getFilter(data);
     onCancel();
   };
@@ -89,6 +89,16 @@ function FilterApartmentModel({
             name="number_of_rooms"
           />
         </Form>
+        <div>
+          <PrimaryButton
+            onClick={() => {
+              getFilter({});
+              reset();
+            }}
+          >
+            Reset Filter
+          </PrimaryButton>
+        </div>
       </Modal>
     </>
   );

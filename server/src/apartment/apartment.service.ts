@@ -4,6 +4,8 @@ import { UpdateApartmentDto } from './dto/update-apartment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Apartment } from './entities/apartment.entity';
+import { FilterApartmentDto } from './dto/filter-apartment.dto';
+import { FilterQueryBuilder } from 'src/common/helpers';
 
 @Injectable()
 export class ApartmentService {
@@ -16,8 +18,21 @@ export class ApartmentService {
     return this.apartmentRepository.insert(createApartmentDto);
   }
 
-  findAll() {
-    return this.apartmentRepository.find({ where: {}, skip: 0, take: 10 });
+  async findAll(query: FilterApartmentDto) {
+    const filterQueryBuilder = new FilterQueryBuilder(query);
+    filterQueryBuilder.addFilter('floor_area_size');
+    filterQueryBuilder.addFilter('price_per_month');
+    filterQueryBuilder.addFilter('number_of_rooms');
+    console.log(filterQueryBuilder.build());
+    return await this.apartmentRepository.find({
+      where: filterQueryBuilder.build(),
+      skip: query.skip || 0,
+      take: query.take || 10,
+    });
+  }
+
+  updateStatus(id: number, value: boolean) {
+    return this.apartmentRepository.update(id, { status: value });
   }
 
   findOne(id: number) {

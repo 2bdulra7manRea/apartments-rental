@@ -12,7 +12,7 @@ function DeleteApartmentModel({
   title: string;
   onCancel: () => void;
   isModalOpen: boolean;
-  currentRowId: string;
+  currentRowId: number;
 }) {
   const queryClient = useQueryClient();
   const { openNotification, contextHolder } = useNotificationApp();

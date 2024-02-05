@@ -1,17 +1,19 @@
 import { Button, Divider } from "antd";
 import { useState } from "react";
 import { IApartment } from "../../../common/types";
-import DeleteApartmentModel from "../../models/deleteAppartmentModel";
+import EditApartmentModel from "../../models/editApartmentModel";
+import { FaEdit } from "react-icons/fa";
+import { useUserRole } from "../../../hooks/useRole";
 
 const pd =
   "https://res.cloudinary.com/homelike/image/upload/w_1900,c_fit,f_auto/homelike-05/uploads/4b4f6f4888bc12223a9e6b31320b9e0e2024d56001f32edf974e813baf3d12d1.jpeg?q=auto";
 
 export function ApartmentCard({ item }: { item: IApartment }) {
-  const [openDeleteModel, setOpenDeleteModel] = useState(false);
+  const [openEditModel, setOpenEditModel] = useState(false);
+  const { isClient } = useUserRole();
 
   const {
     name,
-    description,
     price_per_month,
     number_of_rooms,
     floor_area_size,
@@ -67,17 +69,23 @@ export function ApartmentCard({ item }: { item: IApartment }) {
               <span className="font-bold"> &#163;{price_per_month}</span>
               <span className="unit ml-1">/month</span>{" "}
             </div>
+            <div>
+              {!isClient() && (
+                <Button type="text" onClick={() => setOpenEditModel(true)}>
+                  <FaEdit size={20} />
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </div>
-      {openDeleteModel ? (
-        <DeleteApartmentModel
-          currentRowId={id}
-          title="Delete Apartment"
+      {openEditModel ? (
+        <EditApartmentModel
+          id={id}
           onCancel={() => {
-            setOpenDeleteModel(false);
+            setOpenEditModel(false);
           }}
-          isModalOpen={openDeleteModel}
+          isModalOpen={openEditModel}
         />
       ) : (
         <></>

@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import { useAccount } from "@azure/msal-react";
 import { useUserAccount } from "../../hooks/useAccount";
 import UserProfileMenu from "../user-profile/userProfileMenu";
+import { useUserRole } from "../../hooks/useRole";
 
 export function Header() {
   const [selectedKey, setSelectedKey] = useState("home");
-  const { isAuthenticated, handleOnLogout } = useUserAccount();
+  const { isAuthenticated } = useUserAccount();
+  const { isAdmin } = useUserRole();
   const navigate = useNavigate();
 
   const handleMenuClick = (e: any) => {
@@ -43,18 +45,18 @@ export function Header() {
               <Menu.Item key="home">
                 <Link to="/">Home</Link>
               </Menu.Item>
-              <Menu.Item key="users">
-                <Link to="/users">Users</Link>
-              </Menu.Item>
+
+              {isAdmin() && (
+                <Menu.Item key="users">
+                  <Link to="/users">Users</Link>
+                </Menu.Item>
+              )}
               <Menu.Item key="apartments">
                 <Link to="/apartments">Apartments</Link>
               </Menu.Item>
             </>
           ) : (
             <></>
-            // <Menu.Item key="login">
-            //   <Link to="/login">Login</Link>
-            // </Menu.Item>
           )}
         </Menu>
       </div>

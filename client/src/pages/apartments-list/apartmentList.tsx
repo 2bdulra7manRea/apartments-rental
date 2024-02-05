@@ -6,21 +6,32 @@ import GoogleMapContainer from "../../components/google-map/googleMapContainer";
 import FilterApartmentModel from "../../components/filter-items/filterApartments";
 import { BsFillFilterSquareFill } from "react-icons/bs";
 import { useFetchApartments } from "../../api/apartment.api";
-import { IApartment } from "../../common/types";
+import { FilterApartmentQuery, IApartment } from "../../common/types";
 import HeaderList from "../../components/header/headerList";
+import { useUserRole } from "../../hooks/useRole";
 export function ApartmentListPage() {
   const [openForm, setOpenForm] = useState(false);
   const [openFilter, setOpenFilter] = useState(false);
+  const { isClient } = useUserRole();
+  const [filterData, setFilterData] = useState<FilterApartmentQuery>({
+    take: 10,
+  });
+  const { data, isSuccess, isLoading } = useFetchApartments(filterData);
 
-  const { data, isSuccess } = useFetchApartments();
+  const getFilterValues = (data: any) => {
+    setFilterData({ ...filterData, ...data });
+  };
 
   return (
     <>
-      <HeaderList
-        titleButton="Add new Apartment"
-        onClick={() => setOpenForm(true)}
-      />
-
+      {!isClient() ? (
+        <HeaderList
+          titleButton="Add new Apartment"
+          onClick={() => setOpenForm(true)}
+        />
+      ) : (
+        <></>
+      )}
       <div className="flex justify-between mt-4 mb-4 p-4">
         <div style={{ width: "71%" }}>
           <div className="mb-6 flex justify-between">
@@ -31,12 +42,12 @@ export function ApartmentListPage() {
                 setOpenFilter(true);
               }}
             >
-              <BsFillFilterSquareFill size={20} color="red" />
+              <BsFillFilterSquareFill size={25} />
             </Button>
           </div>
 
           <div className="flex flex-wrap">
-            {isSuccess ? (
+            {isSuccess && !isLoading ? (
               data?.data.map((item: IApartment) => {
                 return <ApartmentCard item={item} />;
               })
@@ -59,17 +70,13 @@ export function ApartmentListPage() {
           isModalOpen={openForm}
         />
       )}
-      {openFilter && (
-        <FilterApartmentModel
-          getFilter={(data) => {
-            console.log(data);
-          }}
-          isModalOpen={openFilter}
-          onCancel={() => {
-            setOpenFilter(false);
-          }}
-        />
-      )}
+      <FilterApartmentModel
+        getFilter={getFilterValues}
+        isModalOpen={openFilter}
+        onCancel={() => {
+          setOpenFilter(false);
+        }}
+      />
     </>
   );
 }

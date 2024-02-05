@@ -73,6 +73,9 @@ export class AuthService {
       time: new Date(),
     });
 
-    return authResponse(access_token, user);
+    return authResponse(access_token, {
+      username: userData.username,
+      role: registerData.role || 'CLIENT',
+    });
   }
 }

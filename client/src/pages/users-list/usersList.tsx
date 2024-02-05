@@ -47,7 +47,9 @@ export function UsersListPage() {
       render: (row: any) => {
         return (
           <>
-            <FaEdit size={20} />
+            <Button type="text">
+              <FaEdit size={20} />
+            </Button>
             <Button
               type="text"
               onClick={() => {

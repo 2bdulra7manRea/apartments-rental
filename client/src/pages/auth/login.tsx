@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { PrimaryButton } from "../../themes/buttons";
 import { useUserAccount } from "../../hooks/useAccount";
 import { useLoginAccountMutation } from "../../api/auth.api";
+import { useNotificationApp } from "../../components/notification/notification";
 
 const schema = yup
   .object({
@@ -16,14 +17,16 @@ const schema = yup
 
 function LoginPage() {
   const { handleOnLogin } = useUserAccount();
+  const { contextHolder, openNotification } = useNotificationApp();
   const { mutate } = useLoginAccountMutation({
     onSuccess: (data) => {
       if (data.data.access_token) {
         handleOnLogin(data.data);
+        openNotification("Successfully logged in ", "success");
       }
     },
     onError(error, variables, context) {
-      console.log(error);
+      openNotification(`unable to logged in, ${error.message}`, "error");
     },
   });
 
@@ -52,73 +55,76 @@ function LoginPage() {
   };
 
   return (
-    <div
-      className="flex justify-center items-center"
-      style={{ backgroundColor: "white", height: "70vh" }}
-    >
-      <div style={{ width: "30%" }}>
-        <h1>Sign Up</h1>
-        <Form>
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Form.Item label="" className="mt-6 mb-6">
-                <Input
-                  value={value}
-                  placeholder="E-email"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                />
-                {errors.email && (
-                  <span style={{ color: "red" }}>The Email is required.</span>
-                )}
-              </Form.Item>
-            )}
-            name="email"
-          />
+    <>
+      <div
+        className="flex justify-center items-center"
+        style={{ backgroundColor: "white", height: "70vh" }}
+      >
+        <div style={{ width: "30%" }}>
+          <h1>Sign Up</h1>
+          <Form>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Form.Item label="" className="mt-6 mb-6">
+                  <Input
+                    value={value}
+                    placeholder="E-email"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                  {errors.email && (
+                    <span style={{ color: "red" }}>The Email is required.</span>
+                  )}
+                </Form.Item>
+              )}
+              name="email"
+            />
 
-          <Controller
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <Form.Item label="" className="mt-6 mb-6">
-                <Input.Password
-                  value={value}
-                  placeholder="password"
-                  onChange={onChange}
-                  onBlur={onBlur}
-                />
-                {errors.password && (
-                  <span style={{ color: "red" }}>
-                    The Password is required.
-                  </span>
-                )}
-              </Form.Item>
-            )}
-            name="password"
-          />
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <Form.Item label="" className="mt-6 mb-6">
+                  <Input.Password
+                    value={value}
+                    placeholder="password"
+                    onChange={onChange}
+                    onBlur={onBlur}
+                  />
+                  {errors.password && (
+                    <span style={{ color: "red" }}>
+                      The Password is required.
+                    </span>
+                  )}
+                </Form.Item>
+              )}
+              name="password"
+            />
 
-          <div>
-            <PrimaryButton onClick={handleSubmit(onSubmit)}>
-              Sign Up
-            </PrimaryButton>
+            <div>
+              <PrimaryButton onClick={handleSubmit(onSubmit)}>
+                Sign Up
+              </PrimaryButton>
 
-            <div className="p-4 pl-0">
-              <p style={{ display: "inline-block" }} className="mr-2">
-                {" "}
-                Don't have an account ?
-              </p>
-              <Link to={"/register"}>Create an account</Link>
+              <div className="p-4 pl-0">
+                <p style={{ display: "inline-block" }} className="mr-2">
+                  {" "}
+                  Don't have an account ?
+                </p>
+                <Link to={"/register"}>Create an account</Link>
+              </div>
             </div>
-          </div>
-        </Form>
+          </Form>
+        </div>
       </div>
-    </div>
+      {contextHolder}
+    </>
   );
 }
 
