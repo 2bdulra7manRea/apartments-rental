@@ -32,7 +32,7 @@ export class UserService implements OnModuleInit {
       });
 
       if (userIsFound) {
-        return new HttpException(
+        throw new HttpException(
           'Email/Username Already Taken',
           HttpStatus.BAD_REQUEST,
         );
@@ -52,7 +52,7 @@ export class UserService implements OnModuleInit {
       await this.create(userData);
       return { message: 'new user added' };
     } catch (error) {
-      return new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
     }
   }
 

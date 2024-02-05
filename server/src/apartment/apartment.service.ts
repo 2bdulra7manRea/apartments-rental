@@ -23,7 +23,6 @@ export class ApartmentService {
     filterQueryBuilder.addFilter('floor_area_size');
     filterQueryBuilder.addFilter('price_per_month');
     filterQueryBuilder.addFilter('number_of_rooms');
-    console.log(filterQueryBuilder.build());
     return await this.apartmentRepository.find({
       where: filterQueryBuilder.build(),
       skip: query.skip || 0,

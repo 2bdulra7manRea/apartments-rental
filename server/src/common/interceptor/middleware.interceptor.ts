@@ -24,7 +24,7 @@ export class MiddlewareInterceptor<T>
     return next.handle().pipe(
       catchError((err) =>
         throwError(() => {
-          return new HttpException(err, HttpStatus.BAD_REQUEST);
+          throw new HttpException(err, HttpStatus.BAD_REQUEST);
         }),
       ),
       map((data) => data),

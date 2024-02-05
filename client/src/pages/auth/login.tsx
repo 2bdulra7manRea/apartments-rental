@@ -7,6 +7,7 @@ import { PrimaryButton } from "../../themes/buttons";
 import { useUserAccount } from "../../hooks/useAccount";
 import { useLoginAccountMutation } from "../../api/auth.api";
 import { useNotificationApp } from "../../components/notification/notification";
+import { memo } from "react";
 
 const schema = yup
   .object({
@@ -60,6 +61,7 @@ function LoginPage() {
         className="flex justify-center items-center"
         style={{ backgroundColor: "white", height: "70vh" }}
       >
+        {contextHolder}
         <div style={{ width: "30%" }}>
           <h1>Sign Up</h1>
           <Form>
@@ -123,9 +125,8 @@ function LoginPage() {
           </Form>
         </div>
       </div>
-      {contextHolder}
     </>
   );
 }
 
-export default LoginPage;
+export default memo(LoginPage);

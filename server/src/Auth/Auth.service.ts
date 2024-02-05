@@ -17,7 +17,7 @@ export class AuthService {
   async login(loginData: UserLogin) {
     const user = await this.userService.findOne({ email: loginData.email });
     if (!user) {
-      return new HttpException(
+      throw new HttpException(
         'Email/Password is not correct!',
         HttpStatus.UNAUTHORIZED,
       );
@@ -29,7 +29,7 @@ export class AuthService {
     );
 
     if (!isPasswordValid) {
-      return new HttpException(
+      throw new HttpException(
         'Email/Password is not correct!',
         HttpStatus.UNAUTHORIZED,
       );
@@ -49,7 +49,7 @@ export class AuthService {
     });
 
     if (userIsFound) {
-      return new HttpException(
+      throw new HttpException(
         'Email/Username Already Taken',
         HttpStatus.BAD_REQUEST,
       );
