@@ -22,11 +22,33 @@ This web application is designed to manage apartments for rental purposes. It is
 
 ## Features
 
+- Node.js application based on a layered architecture with MySQL database.
 - User Authentication using JWT.
 - Three roles: Client, Admin, and Realtor.
 - User functionalities: Login, Register, Logout.
 - Filtering apartments by price, number of rooms, and size.
 - Integration with Google Maps to display apartment locations.
+
+# Project Title
+
+Brief project description goes here.
+
+## Technologies and Patterns Used
+
+- **Repository Pattern:** Implemented the repository pattern to separate data retrieval logic from the rest of the application.
+
+- **Builder Pattern:** Utilized the builder pattern to construct complex objects in a step-by-step fashion, allowing for flexible object creation.
+
+- **Functional Hooks in React:**
+
+  - `useState`, `useEffect`, `useContext`, and other React hooks were employed to manage state and other React features in functional components.
+
+- **UseQuery with AJAX in React:**
+
+  - Leveraged the `useQuery` hook (possibly from Apollo Client or React Query) to handle AJAX requests in a declarative manner, simplifying data fetching and state management.
+
+- **UseForm Hooks for Form Management:**
+  - Integrated `useForm` hooks, possibly from libraries like `react-hook-form`, to streamline form state, validation, and submission processes.
 
 ### Roles and Permissions
 
