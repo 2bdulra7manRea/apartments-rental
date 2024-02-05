@@ -29,10 +29,6 @@ This web application is designed to manage apartments for rental purposes. It is
 - Filtering apartments by price, number of rooms, and size.
 - Integration with Google Maps to display apartment locations.
 
-# Project Title
-
-Brief project description goes here.
-
 ## Technologies and Patterns Used
 
 - **Repository Pattern:** Implemented the repository pattern to separate data retrieval logic from the rest of the application.
@@ -41,7 +37,7 @@ Brief project description goes here.
 
 - **Functional Hooks in React:**
 
-  - `useState`, `useEffect`, `useContext`, and other React hooks were employed to manage state and other React features in functional components.
+  - `useState`, `useEffect`, and other React hooks were employed to manage state and other React features in functional components.
 
 - **UseQuery with AJAX in React:**
 
